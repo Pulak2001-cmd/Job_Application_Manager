@@ -13,11 +13,11 @@ function App() {
     <>
       {loggedIn ? (
         <Routes>
-          <Route path="/" Component={HomePage} />
+          <Route path="/" element={<HomePage setLoggedIn={setLoggedIn} />}/>
         </Routes>
       ): (
         <Routes>
-          <Route path='/' Component={Login} />
+          <Route path='/' element={<Login setLoggedIn={setLoggedIn} />} />
           <Route path='/signup' Component={Signup} />
         </Routes>
       )}
