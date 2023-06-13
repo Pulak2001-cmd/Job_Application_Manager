@@ -13,7 +13,7 @@ function Login(props) {
   }
   return (
     <div className="m-auto d-flex flex-column justify-content-center align-items-center mt-5">
-        <img src="/vite.svg" width="100px" height="100px" alt="Logo" />
+        <img src="/logo.png" width="210px" height="100px" alt="Logo" />
         <h2 className="mt-4">Sign In</h2>
         <div class="mb-3 mt-4">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>

@@ -10,7 +10,7 @@ function Signup() {
   return (
     <div className="d-flex flex-lg-row align-items-center justify-content-center mt-5 flex-md-row flex-column">
         <div className="col-5 d-flex flex-column justify-content-center align-items-center">
-            <img src="/vite.svg" width="100px" height="100px" alt="Logo" />
+            <img src="/logo.png" width="210px" height="100px" alt="Logo" /> 
             <h2 className="mt-4">Sign Up</h2>
             <div class="mb-3 mt-4">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>

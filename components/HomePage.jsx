@@ -39,7 +39,7 @@ function HomePage(props) {
     <div className="d-flex flex-column">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">JobTrackr</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -85,9 +85,9 @@ function HomePage(props) {
         </div>
         <div className="m-lg-4 d-flex flex-column flex-lg-row align-items-center">
             <div className="col-lg-3 d-flex flex-column align-items-center justify-content-center m-lg-4 align-items-lg-start">
-                <h4>Filter</h4>
+                <h4 className="mt-3">Filter</h4>
                 <input type="text" placeholder="Company, skill, tags..." className='skill-input'/>
-                <div className="m-4">
+                <div className="m-2 m-lg-4">
                     <h5 onClick={()=> setOption('speciality')}>Speciality 
                         {option !== 'speciality' ? 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
