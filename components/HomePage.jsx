@@ -154,7 +154,7 @@ function HomePage(props) {
                 </div>
                 
             </div>
-            <div className="col-7">
+            <div className="col-lg-7">
                 {job_list.map((job, index) =>(
                     <div className="d-flex flex-column flex-lg-row justify-content-around align-items-center job">
                         <div className="img">
@@ -163,7 +163,7 @@ function HomePage(props) {
                         <div className="name">
                             <h6>{job.company_name}</h6>
                         </div>
-                        <div className="skills d-md-flex d-lg-flex flex-row d-none">
+                        <div className="skills flex-row d-flex">
                             {job.tags.map((tag, index) =>(
                                 <div className='tag'>
                                     {tag}
