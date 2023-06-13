@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function HomePage(props) {
   const navigate = useNavigate();
-  const [option, setOption] = useState('speciality');
+  const [option, setOption] = useState('');
   const logout = () => {
     props.setLoggedIn(false);
     navigate('/');
@@ -83,8 +83,8 @@ function HomePage(props) {
                 <div className="search-btn">Submit</div>
             </div>
         </div>
-        <div className="m-4 d-flex flex-row">
-            <div className="col-3 d-flex flex-column align-items-start justify-content-center m-4">
+        <div className="m-lg-4 d-flex flex-column flex-lg-row align-items-center">
+            <div className="col-lg-3 d-flex flex-column align-items-center justify-content-center m-lg-4 align-items-lg-start">
                 <h4>Filter</h4>
                 <input type="text" placeholder="Company, skill, tags..." className='skill-input'/>
                 <div className="m-4">
@@ -131,7 +131,7 @@ function HomePage(props) {
                     </div>
                 </div>
 
-                <div className="m-4">
+                <div className="m-lg-4">
                     <h5 onClick={()=> setOption('salaryType')}>Salary type 
                         {option !== 'salaryType' ? 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
@@ -156,14 +156,14 @@ function HomePage(props) {
             </div>
             <div className="col-7">
                 {job_list.map((job, index) =>(
-                    <div className="d-flex flex-row justify-content-around align-items-center job">
+                    <div className="d-flex flex-column flex-lg-row justify-content-around align-items-center job">
                         <div className="img">
                             <img src={job.logo} alt="Logo" width="40px" height="40px" />
                         </div>
                         <div className="name">
                             <h6>{job.company_name}</h6>
                         </div>
-                        <div className="skills d-flex flex-row">
+                        <div className="skills d-md-flex d-lg-flex flex-row d-none">
                             {job.tags.map((tag, index) =>(
                                 <div className='tag'>
                                     {tag}

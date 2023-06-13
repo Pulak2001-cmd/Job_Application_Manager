@@ -11,4 +11,8 @@ body{
 .forgot-password{
     color: rgb(150, 147, 147);
     margin-top: 20px;
+    cursor: pointer;
+}
+.forgot-password:hover{
+    color: #000;
 }
