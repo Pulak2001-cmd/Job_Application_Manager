@@ -39,6 +39,7 @@ function Signup(props) {
       errorMessage("Password and Confirm Password do not match");
       return;
     }
+    setLoading(true);
     const body = {
       name: name,
       email: email,
@@ -47,14 +48,15 @@ function Signup(props) {
     }
     await axios.post(BASE_URL+'user/register/', body).then((response)=> {
       console.log(response.data);
+      setLoading(false);
+      successMessage("You have successfully registered");
     }).catch((error)=> {
       console.log(error.response.data);
       if(error.response.status === 400){
+        setLoading(false);
         errorMessage("Your email ID is already registered. Please login.")
       }
     });
-    // props.setLoggedIn(true);
-    successMessage("You have successfully registered");
     setName("");
     setEmail("");
     setPassword("");
@@ -79,12 +81,18 @@ function Signup(props) {
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   return (
     <div className="d-flex flex-lg-row align-items-center justify-content-center mt-5 flex-md-row flex-column">
-        <div className="col-5 d-flex flex-column justify-content-center align-items-center">
+        <div className="col-lg-5 d-flex flex-column justify-content-center align-items-center">
             <img src="/logo.png" width="210px" height="100px" alt="Logo" /> 
             {error !== "" && <h5 className="text-danger">! {error}</h5>}
             {success !== "" && <h5 className="text-success">! {success}</h5>}
+            {loading &&
+              <div class="spinner-border text-success" role="status">
+                {/* <span class="sr-only">Loading...</span> */}
+              </div>
+            }
             <h2 className="text-primary">Sign Up</h2>
             <div class="mb-3 mt-4">
                 <label for="exampleFormControlInput4" class="form-label">Name</label>

@@ -6,6 +6,7 @@ function HomePage(props) {
   const navigate = useNavigate();
   const [option, setOption] = useState('');
   const logout = () => {
+    localStorage.removeItem('token');
     props.setLoggedIn(false);
     navigate('/');
   }
