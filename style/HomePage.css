@@ -82,3 +82,13 @@ h5{
 .time{
     justify-content: center;
 }
+.input1{
+    width: 350px;
+}
+.button{
+    width: 5rem;
+    margin: 5px;
+}
+.url{
+    width: 10rem;
+}

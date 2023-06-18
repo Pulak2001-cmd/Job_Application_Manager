@@ -4,12 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../Url';
 import axios from 'axios';
 import Loading from './Loading';
+import Dialog from "@mui/material/Dialog";
 
 function HomePage(props) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [dialog, setDialog] = useState(false);
   const [option, setOption] = useState('');
+  const [companyName, setCompanyName] = useState("");
+  const [joburl, setJobUrl] = useState("");
+  const [jobStatus, setJobStatus] = useState("");
+  const [errorPos1, setErrorPos1] = useState(false);
+  const [errorPos2, setErrorPos2] = useState(false);
+  const [errorPos3, setErrorPos3] = useState(false);
   const logout = () => {
     localStorage.removeItem('token');
     props.setLoggedIn(false);
@@ -23,24 +31,24 @@ function HomePage(props) {
   ]);
   const salaryType = ['Hourly wage', 'Monthly', 'Yearly'];
   const employment = ["Full time", "Senior level", "Remote", "Contract"];
-  const [job_list, setJob_list] = useState([
-    {
-        id: 1,
-        company_name: "PWC India",
-        location: "Kolkata, India",
-        time: "1 hour ago",
-        tags: ['Fulltime', 'Freshers', 'Software'],
-        logo: 'https://m.economictimes.com/thumb/msid-75798602,width-1200,height-900,resizemode-4,imgsize-302579/election-at-pwc-india-5-candidates-in-fray-for-the-top-job.jpg'
-    },
-    {
-        id: 1,
-        company_name: "PWC India",
-        location: "Kolkata, India",
-        time: "1 hour ago",
-        tags: ['Fulltime', 'Freshers', 'Software'],
-        logo: 'https://m.economictimes.com/thumb/msid-75798602,width-1200,height-900,resizemode-4,imgsize-302579/election-at-pwc-india-5-candidates-in-fray-for-the-top-job.jpg'
-    },
-  ]);
+    const divStyle = {
+        display: "flex",
+        felxDirection: "row",
+        // position: "absolute",
+        right: "0px",
+        bottom: "0px",
+        // padding: "1rem",
+    };
+  const [job_list, setJob_list] = useState([]);
+  const addJob = () => {
+    setDialog(true);
+  }
+  const closeDialog = () => {
+    setDialog(false);
+    setErrorPos1(false);
+    setErrorPos2(false);
+    setErrorPos3(false);
+  }
   useEffect(()=> {
     setLoading(true);
     const token = localStorage.getItem('token');
@@ -48,15 +56,54 @@ function HomePage(props) {
         response = response.data;
         const user = response.user;
         const job_applications = response.job_applications;
+        console.log(job_applications);
         setName(user.name);
-        // setJob_list(job_applications);
+        setJob_list(job_applications);
         setLoading(false);
     }).catch((error)=>{
+        const id = localStorage.getItem('id');
+        // axios.post(BASE_URL+'user/refresh/', {id: id}).then((response)=>{
+
+        // })
         localStorage.removeItem('token');
         props.setLoggedIn(false);
         navigate('/')
     })
   }, []);
+  const add_applications = () => {
+    var x = 0;
+    if(companyName === ''){
+        setErrorPos1(true);
+        x=1;
+    }
+    if(joburl === ''){
+        setErrorPos2(true);
+        x=1;
+    }
+    if(jobStatus === ''){
+        setErrorPos3(true);
+        x=1;
+    }
+    if(x === 1){
+        return;
+    } else {
+        const body = {
+            company_name: companyName,
+            job_url: joburl,
+            status: jobStatus
+
+        }
+        axios.post(BASE_URL + 'job-application/', body, {headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'), 
+        }}).then((response) => {
+            console.log(response);
+            setDialog(false);
+            window.location.reload();
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+  }
   return (
     loading ? <Loading/> : <div className="d-flex flex-column">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -71,7 +118,47 @@ function HomePage(props) {
                     <a class="nav-link active" aria-current="page" href="#">Your Jobs</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Add a Job</a>
+                    <a class="nav-link active" aria-current="page" href="#" onClick={addJob}>Add a Job</a>
+                    <Dialog onClose = {closeDialog} open = {dialog}>
+                        <div style={{padding: '15px'}}>
+                            <h4> Add Job Application </h4>
+                            <h5>
+                                Fill up the details below
+                            </h5>
+                            <div>
+                                <div className="mb-3">
+                                    <label for="input1" className="form-label">Company Name</label>
+                                    {errorPos1 && <p className="text-danger m-0" style={{fontSize: 12}}>! Please enter company Name</p>}
+                                    <input type="text" onChange={(e)=> setCompanyName(e.target.value)} value={companyName} className="form-control input1" placeholder="Company Name" id="input1"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label for="input2" className="form-label">Job URL</label>
+                                    {errorPos2 && <p className="text-danger m-0" style={{fontSize: 12}}>! Please enter Job URL</p>}
+                                    <input type="text" onChange={(e)=> setJobUrl(e.target.value)} value={joburl} className="form-control input1" placeholder="Job URL" id="input2" />
+                                </div>
+                                <div className="mb-3">
+                                    <label for="input3" className="form-label">Application Status</label>
+                                    {errorPos3 && <p className="text-danger m-0" style={{fontSize: 12}}>! Please enter Application Status</p>}
+                                    <input className="form-control input1" onChange={(e)=> setJobStatus(e.target.value)} value={jobStatus} list="datalistOptions" placeholder="Type to search..." id="input3"/>
+                                    <datalist id="datalistOptions">
+                                        <option value="Applied"/>
+                                        <option value="Under Consideration"/>
+                                        <option value="Interview"/>
+                                        <option value="Accepted"/>
+                                        <option value="Declined"/>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div style = {divStyle}>
+                            <button className='btn btn-success button' onClick = {add_applications}>
+                                Add
+                            </button>
+                            <button className='btn btn-danger button' onClick = {closeDialog}>
+                                Cancel
+                            </button>
+                            </div>
+                        </div>
+                    </Dialog>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">About us</a>
@@ -178,25 +265,20 @@ function HomePage(props) {
             </div>
             <div className="col-lg-7">
                 {job_list.map((job, index) =>(
-                    <div className="d-flex flex-column flex-lg-row justify-content-around align-items-center job">
-                        <div className="img">
-                            <img src={job.logo} alt="Logo" width="40px" height="40px" />
+                    <div className="d-flex flex-column flex-lg-row justify-content-around align-items-center job" key={job.id}>
+                        <div className="url">
+                            <a href={job.job_url} className="text-dark">{job.job_url}</a>
                         </div>
                         <div className="name">
-                            <h6>{job.company_name}</h6>
+                            <h6>{job.company_name || 'Company Name'}</h6>
                         </div>
                         <div className="skills flex-row d-flex">
-                            {job.tags.map((tag, index) =>(
                                 <div className='tag'>
-                                    {tag}
+                                    {job.status}
                                 </div>
-                            ))}
                         </div>
                         <div className="location">
-                            <p>{job.location}</p>
-                        </div>
-                        <div className="time">
-                            <p>{job.time}</p>
+                            <p>{job.location || 'Remote'}</p>
                         </div>
                     </div>
                 ))}

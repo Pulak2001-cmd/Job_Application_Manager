@@ -43,9 +43,13 @@ function Login(props) {
       email: email,
       password: password
     }
-    await axios.post(BASE_URL+'user/login/', body).then((response) => {
+    await axios.post(BASE_URL+'user/login/', body, {
+      withCredentials: true,
+    }).then((response) => {
       const token = response.data.token;
+      const id = response.data.id;
       localStorage.setItem('token', token);
+      localStorage.setItem('id', id);
       props.setLoggedIn(true);
       navigate('/');
     }).catch((error) => {
