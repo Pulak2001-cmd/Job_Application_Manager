@@ -61,11 +61,11 @@ function HomePage(props) {
         setJob_list(job_applications);
         setLoading(false);
     }).catch((error)=>{
-        const id = localStorage.getItem('id');
         // axios.post(BASE_URL+'user/refresh/', {id: id}).then((response)=>{
 
         // })
         localStorage.removeItem('token');
+        localStorage.removeItem('id');
         props.setLoggedIn(false);
         navigate('/')
     })
@@ -101,6 +101,7 @@ function HomePage(props) {
             window.location.reload();
         }).catch((error) => {
             console.log(error);
+            window.location.reload();
         })
     }
   }
