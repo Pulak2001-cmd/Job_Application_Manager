@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style/HomePage.css';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../Url';
+import axios from 'axios';
+import Loading from './Loading';
 
 function HomePage(props) {
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [option, setOption] = useState('');
   const logout = () => {
@@ -18,7 +23,7 @@ function HomePage(props) {
   ]);
   const salaryType = ['Hourly wage', 'Monthly', 'Yearly'];
   const employment = ["Full time", "Senior level", "Remote", "Contract"];
-  const job_list = [
+  const [job_list, setJob_list] = useState([
     {
         id: 1,
         company_name: "PWC India",
@@ -35,9 +40,25 @@ function HomePage(props) {
         tags: ['Fulltime', 'Freshers', 'Software'],
         logo: 'https://m.economictimes.com/thumb/msid-75798602,width-1200,height-900,resizemode-4,imgsize-302579/election-at-pwc-india-5-candidates-in-fray-for-the-top-job.jpg'
     },
-  ];
+  ]);
+  useEffect(()=> {
+    setLoading(true);
+    const token = localStorage.getItem('token');
+    axios.get(BASE_URL+'user/', { headers: {Authorization: 'Bearer ' + token}}).then((response)=>{
+        response = response.data;
+        const user = response.user;
+        const job_applications = response.job_applications;
+        setName(user.name);
+        // setJob_list(job_applications);
+        setLoading(false);
+    }).catch((error)=>{
+        localStorage.removeItem('token');
+        props.setLoggedIn(false);
+        navigate('/')
+    })
+  }, []);
   return (
-    <div className="d-flex flex-column">
+    loading ? <Loading/> : <div className="d-flex flex-column">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">JobTrackr</a>
@@ -59,7 +80,7 @@ function HomePage(props) {
                     <div class="d-flex dropdown">
                         <div class="nav-link d-flex flex-row" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/profile.png" height="60px" width="60px" class="profile-img" alt='profile'/>
-                            <p className='m-3'>Aritra Majumder</p>
+                            <p className='m-3'>{name}</p>
                         </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Profile</a></li>

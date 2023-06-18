@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Pulak2001-cmd.github.io/react-gh-pages",
+  "homepage": "https://Pulak2001-cmd.github.io/Job_Application_Manager",
   "name": "job_application",
   "private": true,
   "version": "0.0.0",
@@ -8,7 +8,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
