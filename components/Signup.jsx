@@ -17,8 +17,6 @@ function Signup(props) {
       );
   };
   const signup = async ()=> {
-    console.log(BASE_URL);
-    console.log(validateEmail(email))
     if (validateEmail(email) === false || validateEmail(email) === null) {
       errorMessage("Please enter a valid email address");
       return;
@@ -47,7 +45,6 @@ function Signup(props) {
       username: email,
     }
     await axios.post(BASE_URL+'user/register/', body).then((response)=> {
-      console.log(response.data);
       setLoading(false);
       successMessage("You have successfully registered");
     }).catch((error)=> {
@@ -89,26 +86,26 @@ function Signup(props) {
             {error !== "" && <h5 className="text-danger">! {error}</h5>}
             {success !== "" && <h5 className="text-success">! {success}</h5>}
             {loading &&
-              <div class="spinner-border text-success" role="status">
-                {/* <span class="sr-only">Loading...</span> */}
+              <div className="spinner-border text-success" role="status">
+                {/* <span className="sr-only">Loading...</span> */}
               </div>
             }
             <h2 className="text-primary">Sign Up</h2>
-            <div class="mb-3 mt-4">
-                <label for="exampleFormControlInput4" class="form-label">Name</label>
-                <input type="text" value={name} onChange={(e)=> setName(e.target.value)} class="form-control input-email" id="exampleFormControlInput4" placeholder="Your Name" />
+            <div className="mb-3 mt-4">
+                <label htmlFor="exampleFormControlInput4" className="form-label">Name</label>
+                <input type="text" value={name} onChange={(e)=> setName(e.target.value)} className="form-control input-email" id="exampleFormControlInput4" placeholder="Your Name" />
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} class="form-control input-email" id="exampleFormControlInput1" placeholder="name@example.com" />
+            <div className="mb-3">
+                <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} className="form-control input-email" id="exampleFormControlInput1" placeholder="name@example.com" />
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label">Password</label>
-                <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} class="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
+            <div className="mb-3">
+                <label htmlFor="exampleFormControlInput2" className="form-label">Password</label>
+                <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label">Confirm Password</label>
-                <input type="password" value={password2} onChange={(e) =>setPassword2(e.target.value)}class="form-control input-email" id="exampleFormControlInput3" placeholder='Confirm Your Password' />
+            <div className="mb-3">
+                <label htmlFor="exampleFormControlInput3" className="form-label">Confirm Password</label>
+                <input type="password" value={password2} onChange={(e) =>setPassword2(e.target.value)}className="form-control input-email" id="exampleFormControlInput3" placeholder='Confirm Your Password' />
             </div>
             <button type="button" className='btn btn-primary' onClick={signup}>Sign up</button>
             <button type="button" className='btn btn-outline-dark' onClick={login}>Already have an account? Login</button>

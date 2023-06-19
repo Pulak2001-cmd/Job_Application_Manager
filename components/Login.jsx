@@ -47,14 +47,15 @@ function Login(props) {
       withCredentials: true,
     }).then((response) => {
       const token = response.data.token;
+      const refreshtoken = response.data.refresh;
       const id = response.data.id;
       localStorage.setItem('token', token);
       localStorage.setItem('id', id);
+      localStorage.setItem('refresh', refreshtoken);
       props.setLoggedIn(true);
       navigate('/');
     }).catch((error) => {
       const details = error.response.data.detail;
-      console.log(details);
       errorMessage(details);
     })
     setLoading(false);
@@ -67,17 +68,17 @@ function Login(props) {
         <img src="/logo.png" width="210px" height="100px" alt="Logo" />
         {error !== "" && <h5 className="text-danger">! {error}</h5>}
         {loading && 
-          <div class="spinner-border text-primary" role="status">
+          <div className="spinner-border text-primary" role="status">
           </div>
         }
         <h2 className="mt-4">Sign In</h2>
-        <div class="mb-3 mt-4">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} class="form-control input-email" id="exampleFormControlInput1" placeholder="name@example.com" />
+        <div className="mb-3 mt-4">
+            <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+            <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} className="form-control input-email" id="exampleFormControlInput1" placeholder="name@example.com" />
         </div>
-        <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">Password</label>
-            <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} class="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
+        <div className="mb-3">
+            <label htmlFor="exampleFormControlInput2" className="form-label">Password</label>
+            <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
         </div>
         <button type="button" className='btn btn-primary' onClick={signin}>Sign in</button>
         <p className="forgot-password">Forgot your password?</p>
