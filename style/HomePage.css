@@ -92,3 +92,8 @@ h5{
 .url{
     width: 10rem;
 }
+.delete-item{
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

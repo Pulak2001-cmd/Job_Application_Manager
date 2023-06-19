@@ -5,13 +5,14 @@ import BASE_URL from '../Url';
 import axios from 'axios';
 import Loading from './Loading';
 import Navbar from './Navbar';
+import { Dialog } from '@mui/material';
 
 function HomePage(props) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [option, setOption] = useState('');
-  
+  const [dialog, setDialog] = useState(false);
   const [speciality, setSpeciality] = useState([
     'Software Development',
     'Backend Development',
@@ -29,7 +30,16 @@ function HomePage(props) {
     props.setLoggedIn(false);
     navigate('/');
   }
-  
+  const deleteJobApplication = (id) => {
+    axios.delete(BASE_URL + 'job-application/'+ id.toString(), {headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+    }}).then((response) => {
+        window.location.reload();
+    }).catch((error) => {
+        console.log(error);
+        alert("Error in deleting job application");
+    })
+  }
   useEffect(()=> {
     setLoading(true);
     const token = localStorage.getItem('token');
@@ -176,8 +186,28 @@ function HomePage(props) {
                         <div className="location">
                             <p>{job.location || 'Remote'}</p>
                         </div>
+                        <div className="delete-item" onClick={()=> setDialog(true)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+</svg>
+                        </div>
+                        <Dialog onClose={()=> setDialog(false)} open={dialog}>
+                            <div style={{padding: '15px'}}>
+                                <h3>Are you sure you want to delete ?</h3>
+                                <div className="mt-2 d-flex flex-row">
+                                    <button className="btn btn-danger m-2 " onClick={()=> deleteJobApplication(job.id)}>Yes</button>
+                                    <button className="btn btn-success m-2 " onClick={()=> setDialog(false)} >No</button>
+                                </div>
+                            </div>
+                        </Dialog>
                     </div>
                 ))}
+                {job_list.length === 0 && 
+                    <div className="d-flex align-items-center justify-content-center">
+                        <h2 className='text-secondary'>No Job Application to show</h2>
+                    </div>
+                }
             </div>
         </div>
     </div>

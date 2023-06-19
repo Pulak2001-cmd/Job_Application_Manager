@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Dialog from "@mui/material/Dialog";
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
+import BASE_URL from '../Url';
 
 function Navbar(props) {
     const navigate = useNavigate();
