@@ -1,0 +1,47 @@
+.total{
+    background-color: #ece8e8;
+    height: 100vh;
+}
+.total nav{
+    margin-left: 10px;
+    /* margin-right: 100px; */
+}
+.landing-btn{
+    width: 85px;
+    margin: 10px;
+}
+.register:hover{
+    background-color: #ece8e8;
+    color: blue;
+}
+.box-2{
+    width: 70%;
+}
+.bigtext{
+    text-align: center;
+    font-size: 80px;
+    font-weight:500;
+}
+.box-3{
+    width: 49%;
+}
+.box-3 p{
+    text-align: center;
+}
+.landing-des{
+    margin: 5px;
+    padding: 7px;
+    border: 1px solid #000;
+    border-radius: 6px;
+}
+.footer{
+    background-color: rgb(1, 1, 66);
+    color: #FFF;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    margin-top: 5px;
+}
+.footer-p{
+    font-family: 'Maven Pro', sans-serif;
+}

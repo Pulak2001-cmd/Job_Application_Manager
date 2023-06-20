@@ -4,6 +4,8 @@ import Login from '../components/Login';
 import HomePage from '../components/HomePage';
 import Signup from '../components/Signup';
 import AllJob from '../components/AllJob';
+import { Landing } from '../components/Landing';
+import LoginPre from '../components/LoginPre';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -26,7 +28,9 @@ function App() {
         </Routes>
       ): (
         <Routes>
-          <Route path='/' element={<Login setLoggedIn={setLoggedIn} />} />
+          <Route path='/' element={<Landing/>} />
+          <Route path='/login' element={<LoginPre />} />
+          <Route path='/login/user' element={<Login setLoggedIn={setLoggedIn} />} />
           <Route path='/signup' element={<Signup setLoggedIn={setLoggedIn} />} />
         </Routes>
       )}
