@@ -4,6 +4,7 @@ import Loading from './Loading';
 import axios from 'axios';
 import BASE_URL from '../Url';
 import { useNavigate } from 'react-router-dom';
+import JobPage from './JobPage';
 
 export default function AllJob(props) {
   const [loading, setLoading] = useState(false);
@@ -29,14 +30,7 @@ export default function AllJob(props) {
   return ( loading ? <Loading /> :
     <div className="d-flex flex-column">
         <Navbar name={props.name} logout={logout}/>
-        <div className="d-flex flex-column">
-          {jobs.map((job, index) =>(
-            <div key={index} className="job d-flex flex-row">
-              <p>{job.company_name}</p>
-              <p>{job.description}</p>
-            </div>
-          ))}
-        </div>
+        <JobPage jobs={jobs} />
     </div>
   )
 }

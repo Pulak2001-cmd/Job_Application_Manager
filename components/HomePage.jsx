@@ -43,41 +43,44 @@ function HomePage(props) {
   useEffect(()=> {
     setLoading(true);
     const token = localStorage.getItem('token');
-    axios.get(BASE_URL+'user/', { headers: {Authorization: 'Bearer ' + token}}).then((response)=>{
-        response = response.data;
-        const user = response.user;
-        const job_applications = response.job_applications;
-        console.log(job_applications);
-        setName(user.name);
-        props.setName(user.name);
-        setJob_list(job_applications);
-        setLoading(false);
-    }).catch((error)=>{
-        const id = localStorage.getItem('id');
-        const refresh = localStorage.getItem('refresh');
-        if (id != null && refresh != null){
-            const params = new URLSearchParams();
-            params.append('id', id);
-            params.append('refresh', refresh);
-            axios.post(BASE_URL+'user/refresh/', params).then((response)=>{
-                localStorage.setItem('token', response.data.token);
-                window.location.reload();
-            }).catch((error1)=>{
-                console.log("Error in refresh token");
-                localStorage.removeItem('token');
+    const type = localStorage.getItem('type');
+    if (type === 'user'){
+        axios.get(BASE_URL+'user/', { headers: {Authorization: 'Bearer ' + token}}).then((response)=>{
+            response = response.data;
+            const user = response.user;
+            const job_applications = response.job_applications;
+            console.log(job_applications);
+            setName(user.name);
+            props.setName(user.name);
+            setJob_list(job_applications);
+            setLoading(false);
+        }).catch((error)=>{
+            const id = localStorage.getItem('id');
+            const refresh = localStorage.getItem('refresh');
+            if (id != null && refresh != null){
+                const params = new URLSearchParams();
+                params.append('id', id);
+                params.append('refresh', refresh);
+                axios.post(BASE_URL+'user/refresh/', params).then((response)=>{
+                    localStorage.setItem('token', response.data.token);
+                    window.location.reload();
+                }).catch((error1)=>{
+                    console.log("Error in refresh token");
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('refresh');
+                    props.setLoggedIn(false);
+                    navigate('/')
+                })
+            } else {
                 localStorage.removeItem('id');
                 localStorage.removeItem('refresh');
+                localStorage.removeItem('token');
                 props.setLoggedIn(false);
-                navigate('/')
-            })
-        } else {
-            localStorage.removeItem('id');
-            localStorage.removeItem('refresh');
-            localStorage.removeItem('token');
-            props.setLoggedIn(false);
-            navigate('/');
-        }
-    })
+                navigate('/');
+            }
+        })
+    }
   }, []);
 
   return (
@@ -188,9 +191,9 @@ function HomePage(props) {
                         </div>
                         <div className="delete-item" onClick={()=> setDialog(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-</svg>
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
                         </div>
                         <Dialog onClose={()=> setDialog(false)} open={dialog}>
                             <div style={{padding: '15px'}}>

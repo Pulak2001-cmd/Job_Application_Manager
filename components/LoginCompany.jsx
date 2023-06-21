@@ -47,21 +47,23 @@ function LoginCompany(props) {
       withCredentials: true,
     }).then((response) => {
         console.log(response.data);
-    //   const token = response.data.token;
-    //   const refreshtoken = response.data.refresh;
-    //   const id = response.data.id;
-    //   localStorage.setItem('token', token);
-    //   localStorage.setItem('id', id);
-    //   localStorage.setItem('refresh', refreshtoken);
-    //   props.setLoggedIn(true);
-    //   navigate('/');
+      const token = response.data.token;
+      const refreshtoken = response.data.refresh;
+      const id = response.data.id;
+      localStorage.setItem('token', token);
+      localStorage.setItem('type', 'company');
+      localStorage.setItem('id', id);
+      localStorage.setItem('refresh', refreshtoken);
+      props.setLoggedIn(true);
+      props.setType('company');
+      navigate('/');
     }).catch((error) => {
       const details = error.response.data.detail;
       errorMessage(details);
     })
     setLoading(false);
-    // setEmail("");
-    // setPassword("");
+    setEmail("");
+    setPassword("");
   }
   
   return (

@@ -73,11 +73,13 @@ function Navbar(props) {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
+                    {localStorage.getItem('type') === 'user' && <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/jobs">All Jobs</Link>
-                    </li>
+                    </li>}
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#" onClick={addJob}>Add a Job</a>
+                    {localStorage.getItem('type') === 'user' ? 
+                        <a className="nav-link active" aria-current="page" href="#" onClick={addJob}>Add a Job</a> : 
+                        <Link className="nav-link active" aria-current="page" to="/add">Add a Job</Link>}
                     <Dialog onClose = {closeDialog} open = {dialog}>
                         <div style={{padding: '15px'}}>
                             <h4> Add Job Application </h4>
@@ -125,7 +127,9 @@ function Navbar(props) {
                 </ul>
                     <div className="d-flex dropdown">
                         <div className="nav-link d-flex flex-row" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/profile.png" height="60px" width="60px" className="profile-img" alt='profile'/>
+                            {localStorage.getItem('type') === 'user' ? 
+                            <img src="/profile.png" height="60px" width="60px" className="profile-img" alt='profile'/> :
+                            <img src="/company_logo.png" height="60px" width="60px" className="profile-img" alt='company' />}
                             <p className='m-3'>{props.name}</p>
                         </div>
                         <ul className="dropdown-menu">

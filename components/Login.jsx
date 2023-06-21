@@ -50,9 +50,11 @@ function Login(props) {
       const refreshtoken = response.data.refresh;
       const id = response.data.id;
       localStorage.setItem('token', token);
+      localStorage.setItem('type', 'user');
       localStorage.setItem('id', id);
       localStorage.setItem('refresh', refreshtoken);
       props.setLoggedIn(true);
+      props.setType('user');
       navigate('/');
     }).catch((error) => {
       const details = error.response.data.detail;
