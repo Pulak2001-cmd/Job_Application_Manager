@@ -7,13 +7,16 @@ export const Landing = () => {
   const login = ()=> {
     navigate('/login');
   }
+  const register = ()=> {
+    navigate('/signup');
+  }
   return (
     <div className="total">
         <nav className="d-flex flex-row ml-4 justify-content-between">
             <img src='/logo.png'  width="210px" height="100px" alt="Logo" />
             <div className="m-4">
                 <button className="btn btn-outline-primary landing-btn" onClick={()=> login()}>Login</button>
-                <button className="btn btn-primary landing-btn register">Register</button>
+                <button className="btn btn-primary landing-btn register" onClick={()=> register()}>Register</button>
             </div>
         </nav>
         <div className="d-flex flex-column justify-content-center align-items-center m-2 box-2 m-auto">
