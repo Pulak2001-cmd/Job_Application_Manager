@@ -31,6 +31,7 @@ export const Landing = () => {
         <div className="box-3 m-auto">
             <p className="text-secondary">Job search platform worldwide, We connect freelancers and startups in easy way and good collaboration. We also help to manage your job applications.</p>
         </div>
+        <div className="m-2">
         <div className="d-flex flex-row m-auto align-items-center justify-content-center">
             <button className="landing-des">front-end</button>
             <button className="landing-des">ui designer</button>
@@ -43,19 +44,20 @@ export const Landing = () => {
             <button className="landing-des">back-end</button>
             <button className="landing-des">marketing</button>
         </div>
+        </div>
         <div className="d-flex flex-column flex-lg-row p-3 mt-1 footer m-auto align-items-center justify-content-center">
             <div className='col-6 text-center'>
                 <h3>People Productivity performance</h3>
             </div>
-            <div className='col-2 d-flex flex-column align-items-center justify-content-center border-start border-light p-4'>
+            <div className='col-2 d-flex flex-column align-items-center justify-content-center border-lg-start border-light p-lg-4'>
                 <p className='fw-bold footer-p'>JOBS</p>
                 <p className='fw-bold footer-p'>1000+</p>
             </div>
-            <div className='col-2 d-flex flex-column border-start border-light p-4 align-items-center justify-content-center'>
+            <div className='col-2 d-flex flex-column border-lg-start border-light p-lg-4 align-items-center justify-content-center'>
                 <p className='fw-bold footer-p'>STARTUPS</p>
                 <p className='fw-bold footer-p'>500+</p>
             </div>
-            <div className='col-2 d-flex flex-column border-start border-light p-4 align-items-center justify-content-center'>
+            <div className='col-2 d-flex flex-column border-lg-start border-light p-lg-4 align-items-center justify-content-center'>
                 <p className='fw-bold footer-p '>TALENTS</p>
                 <p className='fw-bold footer-p'>8000+</p>
             </div>
