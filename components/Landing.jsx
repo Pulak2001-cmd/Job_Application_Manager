@@ -43,20 +43,20 @@ export const Landing = () => {
             <button className="landing-des">back-end</button>
             <button className="landing-des">marketing</button>
         </div>
-        <div className="d-flex flex-column flex-lg-row border-top border-light p-4 footer m-auto align-items-center justify-content-center">
+        <div className="d-flex flex-column flex-lg-row p-3 mt-1 footer m-auto align-items-center justify-content-center">
             <div className='col-6 text-center'>
                 <h3>People Productivity performance</h3>
             </div>
-            <div className='col-2 d-flex flex-column'>
+            <div className='col-2 d-flex flex-column align-items-center justify-content-center border-start border-light p-4'>
                 <p className='fw-bold footer-p'>JOBS</p>
                 <p className='fw-bold footer-p'>1000+</p>
             </div>
-            <div className='col-2 d-flex flex-column'>
+            <div className='col-2 d-flex flex-column border-start border-light p-4 align-items-center justify-content-center'>
                 <p className='fw-bold footer-p'>STARTUPS</p>
                 <p className='fw-bold footer-p'>500+</p>
             </div>
-            <div className='col-2 d-flex flex-column'>
-                <p className='fw-bold footer-p'>TALENTS</p>
+            <div className='col-2 d-flex flex-column border-start border-light p-4 align-items-center justify-content-center'>
+                <p className='fw-bold footer-p '>TALENTS</p>
                 <p className='fw-bold footer-p'>8000+</p>
             </div>
         </div>
