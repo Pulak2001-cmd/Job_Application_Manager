@@ -1,18 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import Dialog from "@mui/material/Dialog";
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 import BASE_URL from '../Url';
 
 function Navbar(props) {
     const navigate = useNavigate();
     const [companyName, setCompanyName] = useState("");
+    const [loading, setLoading] = useState(false);
     const [joburl, setJobUrl] = useState("");
     const [jobStatus, setJobStatus] = useState("");
     const [errorPos1, setErrorPos1] = useState(false);
     const [errorPos2, setErrorPos2] = useState(false);
     const [errorPos3, setErrorPos3] = useState(false);
     const [dialog, setDialog] = useState(false);
+    const [dialog3, setDialog3] = useState(false);
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [password3, setPassword3] = useState('');
+    const [error, setError] = useState("");
     const addJob = () => {
         setDialog(true);
       }
@@ -63,6 +69,43 @@ function Navbar(props) {
                 window.location.reload();
             })
         }
+      }
+      const change_password = async () => {
+        if(password2.length <= 6){
+            setError("The minimum length of the password is 6 characters");
+            return;
+        }
+        if(password3 !== password2){
+            setError("Password and Confirm Password do not match");
+            return;
+        }
+        setLoading(true);
+        const body = {
+            old_password :password,
+            new_password: password3
+        }
+        await axios.put(BASE_URL + 'user/change-password/', body, {
+            headers: { 
+                Authorization: 'Bearer '+localStorage.getItem('token')
+            }
+        }).then((response) => {
+            console.log(response);
+            setError("Password changed successfully.")
+            setPassword('');
+            setPassword2('');
+            setPassword3('');
+            setTimeout(() => {
+                setDialog3(false)
+            }, 2000);
+        }).catch((error) => {
+            console.log(error.response);
+            if(error.response.status === 400){
+                setError(error.response.data['old_password'][0]);
+            }else{
+                console.log(error.message);
+            }
+        })
+        setLoading(false);
       }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -133,9 +176,37 @@ function Navbar(props) {
                             <p className='m-3'>{props.name}</p>
                         </div>
                         <ul className="dropdown-menu">
-                            {/* <li><a className="dropdown-item" href="#">Profile</a></li> */}
+                            {localStorage.getItem('type') === 'user' && <li className="dropdown-item" style={{cursor: 'pointer'}} onClick={()=> setDialog3(true)}>Change Password</li>}
                             <li className="dropdown-item" onClick={props.logout} style={{cursor: 'pointer'}}>Logout</li>
-                        </ul>    
+                        </ul>  
+                        <Dialog onClose={()=> setDialog3(false)} open={dialog3}>
+                            <div style={{padding: '15px'}}>
+                                {error !== '' && <p className="text-danger">{error}</p>}
+                                <div className="mb-3">
+                                    <label htmlFor="exampleFormControlInput2" className="form-label">Old Password</label>
+                                    <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleFormControlInput2" className="form-label">New Password</label>
+                                    <input type="password" value={password3} onChange={(e)=> setPassword3(e.target.value)} className="form-control input-email" id="exampleFormControlInput2" placeholder='Your Password' />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleFormControlInput3" className="form-label">Confirm New Password</label>
+                                    <input type="password" value={password2} onChange={(e) =>setPassword2(e.target.value)}className="form-control input-email" id="exampleFormControlInput3" placeholder='Confirm Your Password' />
+                                </div>
+                                <div style = {divStyle}>
+                                    <button className='btn btn-success button' onClick = {change_password}>
+                                        {loading ? 
+                                        <div className="spinner-border text-light" role="status">
+                                        </div>
+                                        : 'Change'}
+                                    </button>
+                                    <button className='btn btn-danger button' onClick = {()=> setDialog3(false)}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </Dialog>  
                     </div>
                 </div>
             </div>
