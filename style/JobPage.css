@@ -6,6 +6,19 @@
 .pagecon{
     width: 50%;
 }
+@media (max-width: 768px) {
+    .pagecon {
+      width: 100%;
+      margin: 2px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    body {
+        width: 100%;
+        margin: 2px;
+    }
+  }
 .bgd{
     background-color: rgb(207, 201, 201);
 }

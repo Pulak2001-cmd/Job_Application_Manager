@@ -13,6 +13,8 @@ function HomePage(props) {
   const navigate = useNavigate();
   const [option, setOption] = useState('');
   const [dialog, setDialog] = useState(false);
+  const [dialog2, setDialog2] = useState(false);
+  const [jobStatus, setJobStatus] = useState('');
   const [speciality, setSpeciality] = useState([
     'Software Development',
     'Backend Development',
@@ -39,6 +41,33 @@ function HomePage(props) {
         console.log(error);
         alert("Error in deleting job application");
     })
+  }
+  const editJobApplication = (jobId) => {
+    const status = ['Applied', 'Under Consideration', 'Interview', 'Accepted', 'Declined'];
+    const body = {
+        status: jobStatus
+    };
+    if(status.includes(jobStatus)){
+        axios.patch(BASE_URL + 'job-application/'+jobId.toString(), body, {headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        }}).then((response) => {
+            window.location.reload();
+        }).catch((error) => {
+            console.error(error.message);
+        })
+    }
+  }
+  const openEditDialog = async (jobId) => {
+    await axios.get(BASE_URL + 'job-application/'+jobId.toString(), {headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+    }}).then((response) => {
+        console.log(response.data);
+        const status = response.data.status;
+        setJobStatus(status);
+    }).catch((error) => {
+        console.error(error.message);
+    })
+    setDialog2(true);
   }
   useEffect(()=> {
     setLoading(true);
@@ -189,11 +218,37 @@ function HomePage(props) {
                         <div className="location">
                             <p>{job.location || 'Remote'}</p>
                         </div>
+                        <div className="delete-item" onClick={()=> openEditDialog(job.id)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                            </svg>
+                        </div>
+                        <Dialog onClose={()=> setDialog2(false)} open={dialog2}>
+                            <div style={{padding: '15px'}}>
+                                <h3>Edit your application status</h3>
+                                <div className="mb-3">
+                                    <label htmlFor="input3" className="form-label">Application Status</label>
+                                    <input className="form-control input1" onChange={(e)=> setJobStatus(e.target.value)} value={jobStatus} list="datalistOptions" placeholder="Type to search..." id="input3"/>
+                                    <datalist id="datalistOptions">
+                                        <option value="Applied"/>
+                                        <option value="Under Consideration"/>
+                                        <option value="Interview"/>
+                                        <option value="Accepted"/>
+                                        <option value="Declined"/>
+                                    </datalist>
+                                </div>
+                                <div className="mt-2 d-flex flex-row">
+                                    <button className="btn btn-danger m-2 " onClick={()=> editJobApplication(job.id)}>Submit</button>
+                                    <button className="btn btn-success m-2 " onClick={()=> setDialog2(false)} >Cancel</button>
+                                </div>
+                            </div>
+                        </Dialog>    
                         <div className="delete-item" onClick={()=> setDialog(true)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                        </svg>
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
                         </div>
                         <Dialog onClose={()=> setDialog(false)} open={dialog}>
                             <div style={{padding: '15px'}}>
