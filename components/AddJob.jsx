@@ -120,44 +120,44 @@ export const AddJob = (props) => {
         loading ? <Loading />:
         <div>
             <Navbar name={name} logout={logout}/>
-            <div className="m-5 d-flex flex-column cont1 m-auto">
+            <div className="d-flex flex-column cont1 m-auto">
                 <div className="m-auto p-3">
                     <h2 className="text-primary">Add a job</h2>
                     {error !== "" && <p className="text-danger">! {error}</p>}
                 </div>
-                <div class="mb-3 mt-3">
+                <div class="m-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Job Description</label>
                     <textarea value={description} onChange={(e)=> setDescription(e.target.value)} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <div className="mb-3 mt-3">
-                    <label for="customRange2" class="form-label">Experience</label>
-                    <input type="range" value={experience} onChange={(e)=> setExperience(e.target.value)} class="form-range" min="0" max="5" id="customRange2" />
+                <div className="m-3">
+                    <label for="customRange2" class="form-label">Experience</label> : {experience}
+                    <input type="range" value={experience} onChange={(e)=> setExperience(e.target.value)} class="form-range" min="0" max="10" id="customRange2" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange3" class="form-label">Job ID</label>
                     <input type="text" value={jobid} onChange={(e)=> setJobid(e.target.value)} class="form-control" id="customRange3" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange4" class="form-label">Job URL</label>
                     <input type="text" value={joburl} onChange={(e)=> setJoburl(e.target.value)} class="form-control" id="customRange4" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange5" class="form-label">Location</label>
                     <input type="text" value={location} onChange={(e)=> setLocation(e.target.value)} class="form-control" id="customRange5" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange6" class="form-label">Skills required</label>
                     <input type="text" value={skill} onChange={(e)=> setSkill(e.target.value)} class="form-control" id="customRange6" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange6" class="form-label">Last Date of Application</label>
                     <input type="date" value={last_date} onChange={(e)=> setLastDate(e.target.value)} class="form-control" id="customRange6" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange6" class="form-label">Test Date</label>
                     <input type="date" value={test_date} onChange={(e) => setTestDate(e.target.value)} class="form-control" id="customRange6" />
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="m-3">
                     <label for="customRange6" class="form-label">Interview Date</label>
                     <input type="date" value={interview_date} onChange={(e) => setInterviewDate(e.target.value)} class="form-control" id="customRange6" />
                 </div>
