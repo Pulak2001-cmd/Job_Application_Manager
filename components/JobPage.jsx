@@ -4,7 +4,7 @@ import axios from 'axios';
 import BASE_URL from '../Url';
 
 const JobPage = (props) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState('');
     function getAge(creationDateString) {
         // Convert the creation date string to a Date object.
         const creationDate = new Date(creationDateString);
@@ -19,7 +19,7 @@ const JobPage = (props) => {
         return difference / (1000 * 60 * 60 * 24);
     }
     const apply = (company_name, url)=> {
-        setLoading(true);
+        setLoading(index);
         const body = {
             company_name: company_name,
             job_url: url,
@@ -28,7 +28,7 @@ const JobPage = (props) => {
         axios.post(BASE_URL + 'job-application/', body, {headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token'), 
         }}).then((response) => {
-            setLoading(false);
+            setLoading('');
             Navigate('/');
         }).catch((error) => {
             console.log(error);
@@ -51,8 +51,8 @@ const JobPage = (props) => {
                     <p className="lastDate">Last Date of Application : {job.last_date_of_application}</p>
                     {/* <p className="lastDate">Published : {getAge(job.last_date_of_application)}  days ago</p> */}
                     <p>Skills required : {job.skills_required}</p>
-                    {localStorage.getItem('type') === 'user' && <button className="btn btn-primary" onClick={()=> apply(job.company_name, job.job_url)}>
-                        {loading ? <div className="spinner-border text-light" role="status">
+                    {localStorage.getItem('type') === 'user' && <button className="btn btn-primary" onClick={()=> apply(job.company_name, job.job_url, index)}>
+                        {loading === index ? <div className="spinner-border text-light" role="status">
           </div>: 'Apply Now'}
                     </button>}
                 </div>
