@@ -18,7 +18,7 @@ const JobPage = (props) => {
         // Return the age in days.
         return difference / (1000 * 60 * 60 * 24);
     }
-    const apply = (company_name, url)=> {
+    const apply = (company_name, url, index)=> {
         setLoading(index);
         const body = {
             company_name: company_name,
@@ -29,7 +29,7 @@ const JobPage = (props) => {
             Authorization: 'Bearer ' + localStorage.getItem('token'), 
         }}).then((response) => {
             setLoading('');
-            Navigate('/');
+            // Navigate('/');
         }).catch((error) => {
             console.log(error);
             window.location.reload();
@@ -51,10 +51,12 @@ const JobPage = (props) => {
                     <p className="lastDate">Last Date of Application : {job.last_date_of_application}</p>
                     {/* <p className="lastDate">Published : {getAge(job.last_date_of_application)}  days ago</p> */}
                     <p>Skills required : {job.skills_required}</p>
-                    {localStorage.getItem('type') === 'user' && <button className="btn btn-primary" onClick={()=> apply(job.company_name, job.job_url, index)}>
+                    <div className="d-flex align-items-center justify-content-center">
+                    {localStorage.getItem('type') === 'user' && <button className="btn btn-primary apply-btn" onClick={()=> apply(job.company_name, job.job_url, index)}>
                         {loading === index ? <div className="spinner-border text-light" role="status">
           </div>: 'Apply Now'}
                     </button>}
+                    </div>
                 </div>
             ))}
         </div>
