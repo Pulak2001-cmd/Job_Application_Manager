@@ -30,7 +30,7 @@ export default function AllJob(props) {
   return ( loading ? <Loading /> :
     <div className="d-flex flex-column">
         <Navbar name={props.name} logout={logout}/>
-        <JobPage jobs={jobs} />
+        <JobPage jobs={jobs} edit={false}/>
     </div>
   )
 }

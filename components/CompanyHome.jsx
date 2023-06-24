@@ -69,7 +69,7 @@ export const CompanyHome = (props) => {
             <div className="m-auto p-3 d-flex align-items-center justify-content-center">
                 <h3 className="text-primary">My Jobs</h3>
             </div>
-            <JobPage jobs={jobs} />
+            <JobPage jobs={jobs} edit={true}/>
         </div>
   )
 }

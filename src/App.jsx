@@ -11,6 +11,7 @@ import LoginCompany from '../components/LoginCompany';
 import RegisterCompany from '../components/RegisterCompany';
 import { CompanyHome } from '../components/CompanyHome';
 import { AddJob } from '../components/AddJob';
+import { Edit } from '../components/Edit';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -36,6 +37,7 @@ function App() {
           {localStorage.getItem('type') == 'company' && 
             <Route path="/add" element={<AddJob setLoggedIn={setLoggedIn} name={name}/>} />
           }
+          <Route path="/edit" Component={Edit} />
         </Routes>
       ): (
         <Routes>
