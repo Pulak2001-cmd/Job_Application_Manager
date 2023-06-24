@@ -88,7 +88,7 @@ function RegisterCompany() {
     }, 2000);
   }
   return (
-    <div className="d-flex m-auto flex-column align-items-center justify-content-center">
+    <div className="d-flex m-auto flex-column align-items-center justify-content-center m-2">
         <img src="/logo.png" width="210px" height="100px" alt="Logo" />
         {error !== "" && <h5 className="text-danger">! {error}</h5>}
         {success !== "" && <h5 className="text-success">! {success}</h5>}
