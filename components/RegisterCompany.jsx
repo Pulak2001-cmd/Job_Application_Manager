@@ -98,8 +98,8 @@ function RegisterCompany() {
             </div>
         }
         <h2 className="text-primary">Sign Up</h2>
-        <div className="d-flex flex-row">
-            <div className='m-3'>
+        <div className="d-flex flex-lg-row flex-column m-2">
+            <div className='m-lg-3'>
                 <div className="mb-3 mt-4">
                     <label htmlFor="exampleFormControlInput4" className="form-label">Name</label>
                     <input type="text" value={name} onChange={(e)=> setName(e.target.value)} className="form-control input-email" id="exampleFormControlInput4" placeholder="Your Name" />
@@ -113,8 +113,8 @@ function RegisterCompany() {
                     <input type="text" value={hq} onChange={(e)=> setHq(e.target.value)} className="form-control input-email" id="exampleFormControlInput2" placeholder='Company head quarter' />
                 </div>
             </div>
-            <div className="m-3">
-                <div className="mb-3 mt-4">
+            <div className="m-lg-3">
+                <div className="mb-3 mt-lg-4">
                     <label htmlFor="exampleFormControlInput5" className="form-label">Openings</label>
                     <input type="number" value={opening} onChange={(e)=> setOpening(e.target.value)} className="form-control input-email" id="exampleFormControlInput5" placeholder='No of openings' />
                 </div>

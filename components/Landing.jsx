@@ -31,7 +31,7 @@ export const Landing = () => {
         <div className="box-3 m-auto">
             <p className="text-secondary">Job search platform worldwide, We connect freelancers and startups in easy way and good collaboration. We also help to manage your job applications.</p>
         </div>
-        <div className="m-2">
+        <div className="m-2 m-lg-0">
         <div className="d-flex flex-row m-auto align-items-center justify-content-center">
             <button className="landing-des">front-end</button>
             <button className="landing-des">ui designer</button>
