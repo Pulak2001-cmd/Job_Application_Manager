@@ -162,7 +162,7 @@ export const AddJob = (props) => {
                     <input type="date" value={interview_date} onChange={(e) => setInterviewDate(e.target.value)} class="form-control" id="customRange6" />
                 </div>
                 <div className="m-auto p-2">
-                    <button type="submit" class="btn btn-primary m-3" onClick={add}>Submit</button>
+                    <button type="submit" class="btn btn-primary m-3 jobbtn" onClick={add}>Submit</button>
                 </div>
             </div>
         </div>

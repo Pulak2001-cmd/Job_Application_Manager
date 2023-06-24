@@ -1,3 +1,14 @@
 .cont1{
     width: 50%;
 }
+@media (max-width: 768px) {
+    .cont1 {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .cont1 {
+      width: 100%;
+    }
+  }

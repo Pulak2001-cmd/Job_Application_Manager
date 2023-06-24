@@ -156,49 +156,7 @@ function HomePage(props) {
                     </div>
                 </div>
 
-                <div className="m-4">
-                    <h5 onClick={()=> setOption('employment')}>Employment 
-                        {option !== 'employment' ? 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down" viewBox="0 0 16 16">
-                                <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                            </svg> : 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                            </svg>}
-                    </h5>
-                    <div className="align-items-start">
-                    {option === 'employment' && employment.map((i, index)=> (
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                {i}
-                            </label>
-                        </div>
-                    ))}
-                    </div>
-                </div>
-
-                <div className="m-lg-4">
-                    <h5 onClick={()=> setOption('salaryType')}>Salary type 
-                        {option !== 'salaryType' ? 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down" viewBox="0 0 16 16">
-                                <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                            </svg> : 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                            </svg>}
-                    </h5>
-                    <div className="align-items-start">
-                    {option === 'salaryType' && salaryType.map((i, index)=> (
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                {i}
-                            </label>
-                        </div>
-                    ))}
-                    </div>
-                </div>
+                
                 
             </div>
             <div className="col-lg-7">
@@ -262,7 +220,7 @@ function HomePage(props) {
                     </div>
                 ))}
                 {job_list.length === 0 && 
-                    <div className="d-flex align-items-center justify-content-center">
+                    <div className="d-flex align-items-center justify-content-center m-auto mt-4">
                         <h2 className='text-secondary'>No Job Application to show</h2>
                     </div>
                 }

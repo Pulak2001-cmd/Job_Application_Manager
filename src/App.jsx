@@ -33,7 +33,7 @@ function App() {
           {type === 'user' || localStorage.getItem('type') == 'user' ? <Route path="/" element={<HomePage setLoggedIn={setLoggedIn} name={name} setName={setName} />}/>: 
           <Route path="/" element={<CompanyHome setLoggedIn={setLoggedIn} name={name} setName={setName} />}/> }
           <Route path="/jobs" element={<AllJob setLoggedIn={setLoggedIn} name={name}/>} />
-          {type === 'company'|| localStorage.getItem('type') == 'company' && 
+          {localStorage.getItem('type') == 'company' && 
             <Route path="/add" element={<AddJob setLoggedIn={setLoggedIn} name={name}/>} />
           }
         </Routes>
