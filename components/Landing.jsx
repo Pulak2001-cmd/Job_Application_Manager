@@ -12,11 +12,16 @@ export const Landing = () => {
   }
   return (
     <div className="total">
-        <nav className="d-flex flex-row ml-4 justify-content-between">
+        <nav className="d-flex flex-row ml-4 justify-content-between navbar navbar-expand-lg">
             <img src='/logo.png'  width="210px" height="100px" alt="Logo" />
-            <div className="m-4">
+            <button className="navbar-toggler m-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="d-flex align-items-end justify-content-end">
+            <div className="m-4 collapse navbar-collapse" id="navbarSupportedContent">
                 <button className="btn btn-outline-primary landing-btn" onClick={()=> login()}>Login</button>
                 <button className="btn btn-primary landing-btn register" onClick={()=> register()}>Register</button>
+            </div>
             </div>
         </nav>
         <div className="d-flex flex-column justify-content-center align-items-center m-2 box-2 m-auto">
@@ -38,7 +43,7 @@ export const Landing = () => {
             <button className="landing-des">back-end</button>
             <button className="landing-des">marketing</button>
         </div>
-        <div className="d-flex flex-row p-4 footer m-auto align-items-center justify-content-center">
+        <div className="d-flex flex-column flex-lg-row border-top border-light p-4 footer m-auto align-items-center justify-content-center">
             <div className='col-6 text-center'>
                 <h3>People Productivity performance</h3>
             </div>

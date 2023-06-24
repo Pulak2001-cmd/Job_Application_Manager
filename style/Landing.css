@@ -22,6 +22,19 @@
     font-size: 80px;
     font-weight:500;
 }
+@media (max-width: 768px) {
+    .bigtext {
+      font-size: 50px;
+      font-weight: 500;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .bigtext {
+      font-size: 50px;
+      font-weight: 500;
+    }
+  }
 .box-3{
     width: 49%;
 }
@@ -38,7 +51,7 @@
     background-color: rgb(1, 1, 66);
     color: #FFF;
     bottom: 0;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     margin-top: 5px;
 }
